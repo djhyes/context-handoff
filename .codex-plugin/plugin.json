@@ -1,0 +1,34 @@
+{
+  "name": "context-handoff",
+  "version": "0.1.0",
+  "description": "Automatically prepare near-full Codex thread handoffs and start fresh continuation sessions.",
+  "author": {
+    "name": "djhyes",
+    "url": "https://github.com/djhyes"
+  },
+  "homepage": "https://github.com/djhyes/context-handoff",
+  "repository": "https://github.com/djhyes/context-handoff",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "handoff",
+    "context",
+    "skills",
+    "hooks"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Context Handoff",
+    "shortDescription": "Hand off near-full Codex threads to fresh sessions.",
+    "longDescription": "Context Handoff packages a skill and compact-time hooks that preserve work when a Codex thread approaches the context limit. It drafts a complete handoff and starts a fresh continuation thread when thread tools are available.",
+    "developerName": "djhyes",
+    "category": "Productivity",
+    "capabilities": [
+      "Automation",
+      "Productivity"
+    ],
+    "defaultPrompt": [
+      "Use $context-handoff to move this near-full thread into a fresh session."
+    ]
+  }
+}

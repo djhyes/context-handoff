@@ -1,0 +1,6 @@
+interface:
+  display_name: "Context Handoff"
+  short_description: "Transfer near-full Codex threads cleanly"
+  default_prompt: "Use $context-handoff to hand off this near-full Codex thread to a fresh session."
+policy:
+  allow_implicit_invocation: true

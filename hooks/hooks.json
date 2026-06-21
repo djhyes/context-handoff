@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PreCompact": [
+      {
+        "matcher": "auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${PLUGIN_ROOT}/hooks/pre_compact_mark_handoff.py",
+            "statusMessage": "Preparing a context handoff marker"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${PLUGIN_ROOT}/hooks/stop_trigger_handoff.py",
+            "statusMessage": "Checking whether a context handoff is pending",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
