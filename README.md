@@ -25,8 +25,9 @@ The hook layer is intentionally narrow. It records that automatic compaction occ
 Clone the repository:
 
 ```bash
-git clone https://github.com/djhyes/context-handoff.git
-cd context-handoff
+mkdir -p ~/plugins
+git clone https://github.com/djhyes/context-handoff.git ~/plugins/context-handoff
+cd ~/plugins/context-handoff
 ```
 
 For the standard personal marketplace layout, keep the checkout at `~/plugins/context-handoff` and add this entry to `~/.agents/plugins/marketplace.json`:
