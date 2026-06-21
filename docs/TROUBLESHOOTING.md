@@ -24,46 +24,17 @@ Then reinstall the plugin and start a new thread:
 codex plugin add context-handoff@personal
 ```
 
-If you must keep using the already-open old thread, create a local compatibility shim from the missing old cache path to the current installed script. Replace `0.1.0` and `0.2.1` with the versions shown in your error and plugin list:
+If you must keep using the already-open old thread, run the bundled repair script from the plugin checkout. Pass the stale versions shown in hook errors:
 
 ```bash
-old="$HOME/.codex/plugins/cache/personal/context-handoff/0.1.0/hooks"
-new="$HOME/.codex/plugins/cache/personal/context-handoff/0.2.1/hooks"
-mkdir -p "$old"
-
-cat > "$old/stop_trigger_handoff.py" <<'PY'
-#!/usr/bin/env python3
-from __future__ import annotations
-
-import runpy
-from pathlib import Path
-
-current = sorted(
-    (Path.home() / ".codex/plugins/cache/personal/context-handoff").glob("*/hooks/stop_trigger_handoff.py")
-)
-target = current[-1] if current else Path.home() / "plugins/context-handoff/hooks/stop_trigger_handoff.py"
-runpy.run_path(str(target), run_name="__main__")
-PY
-
-cat > "$old/pre_compact_mark_handoff.py" <<'PY'
-#!/usr/bin/env python3
-from __future__ import annotations
-
-import runpy
-from pathlib import Path
-
-current = sorted(
-    (Path.home() / ".codex/plugins/cache/personal/context-handoff").glob("*/hooks/pre_compact_mark_handoff.py")
-)
-target = current[-1] if current else Path.home() / "plugins/context-handoff/hooks/pre_compact_mark_handoff.py"
-runpy.run_path(str(target), run_name="__main__")
-PY
+python3 scripts/repair_stale_hook_cache.py 0.1.0 0.2.0
 ```
 
 Smoke-test the shim:
 
 ```bash
 tmpdir="$(mktemp -d)"
+old="$HOME/.codex/plugins/cache/personal/context-handoff/0.2.0/hooks"
 printf '{"trigger":"auto","turn_id":"shim-test"}' | PLUGIN_DATA="$tmpdir" python3 "$old/pre_compact_mark_handoff.py"
 PLUGIN_DATA="$tmpdir" python3 "$old/stop_trigger_handoff.py"
 PLUGIN_DATA="$tmpdir" python3 "$old/stop_trigger_handoff.py"

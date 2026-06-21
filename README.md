@@ -77,6 +77,12 @@ codex plugin add context-handoff@personal
 
 Existing threads can keep old hook file paths in memory. If an old thread reports a missing hook script from a previous version, use the stale-cache repair in `docs/TROUBLESHOOTING.md`.
 
+Quick repair for already-open threads that still reference old cache versions:
+
+```bash
+python3 scripts/repair_stale_hook_cache.py 0.1.0 0.2.0
+```
+
 ## Hook Trust
 
 Codex requires non-managed hooks to be reviewed and trusted before they run.
