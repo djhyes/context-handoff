@@ -1,7 +1,7 @@
 {
   "name": "context-handoff",
-  "version": "0.1.0",
-  "description": "Automatically prepare near-full Codex thread handoffs and start fresh continuation sessions.",
+  "version": "0.2.0",
+  "description": "Prepare near-full agent thread handoffs and start fresh continuation sessions, with Codex automation and cross-agent adapters.",
   "author": {
     "name": "djhyes",
     "url": "https://github.com/djhyes"
@@ -11,16 +11,19 @@
   "license": "MIT",
   "keywords": [
     "codex",
+    "agent-skills",
     "handoff",
     "context",
-    "skills",
+    "claude-code",
+    "openclaw",
+    "hermes",
     "hooks"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Context Handoff",
     "shortDescription": "Hand off near-full Codex threads to fresh sessions.",
-    "longDescription": "Context Handoff packages a skill and compact-time hooks that preserve work when a Codex thread approaches the context limit. It drafts a complete handoff and starts a fresh continuation thread when thread tools are available.",
+    "longDescription": "Context Handoff packages a portable handoff skill, Codex compact-time hooks, and cross-agent adapters that preserve work when an agent thread approaches the context limit. It drafts a complete handoff and starts a fresh continuation thread when thread tools are available.",
     "developerName": "djhyes",
     "category": "Productivity",
     "capabilities": [

@@ -1,26 +1,39 @@
 # Context Handoff
 
-Context Handoff is a local Codex plugin that preserves work when a thread is close to the context limit. It packages:
+Context Handoff is an open-source handoff skill with a first-class Codex plugin and adapters for other agent runtimes. It preserves work when a thread is close to the context limit. It packages:
 
 - a `$context-handoff` skill that writes a complete handoff package
 - `PreCompact(auto)` and `Stop` hooks that nudge Codex to run the handoff workflow when automatic compaction happens
 - a reusable handoff template for fresh continuation threads
+- adapter notes for Claude Code, OpenClaw, Hermes, and generic agents
 
-The goal is simple: before the old thread becomes unreliable, create a fresh Codex thread with enough context to continue without relying on the old chat transcript.
+The goal is simple: before the old thread becomes unreliable, create a fresh continuation thread/session with enough context to continue without relying on the old chat transcript.
 
 ## What It Does
 
-When triggered, the skill asks Codex to:
+When triggered, the skill asks the agent to:
 
 1. stop expanding the original task
 2. inspect the current workspace lightly
 3. summarize the goal, files, commands, failures, constraints, and next steps
 4. include the full handoff in a new thread prompt
-5. create a fresh Codex thread when thread-management tools are available
+5. create a fresh continuation thread/session when thread-management tools are available
 
-The hook layer is intentionally narrow. It records that automatic compaction occurred, then asks Codex once to run `$context-handoff`. The model still writes the actual handoff because only the model has the conversation context.
+The Codex hook layer is intentionally narrow. It records that automatic compaction occurred, then asks Codex once to run `$context-handoff`. The model still writes the actual handoff because only the model has the conversation context.
 
-## Install From This Repository
+## Platform Support
+
+| Platform | Status | Entry point |
+| --- | --- | --- |
+| Codex | Full plugin support | repository root |
+| Claude Code | Skill + hook adapter | `adapters/claude-code/` |
+| OpenClaw | Workflow adapter | `adapters/openclaw/` |
+| Hermes | Runtime/channel adapter | `adapters/hermes/` |
+| Generic agents | Manual prompt reuse | `docs/PORTABILITY.md` |
+
+See `docs/PORTABILITY.md` for the compatibility matrix and adapter boundaries.
+
+## Install For Codex
 
 Clone the repository:
 
@@ -106,8 +119,8 @@ The second `stop_trigger_handoff.py` call should be quiet because the marker is 
 
 ## Known Boundaries
 
-- A Codex skill is not a background daemon.
-- Hooks can detect automatic compaction, but shell hooks cannot themselves write a high-quality conversation handoff.
+- A skill is not a background daemon.
+- Hooks can detect automatic compaction in supported hosts, but shell hooks cannot themselves write a high-quality conversation handoff.
 - Fresh thread creation depends on whether the current Codex environment exposes thread tools such as `create_thread`.
 - If thread creation is unavailable, the skill should still return a handoff and reactivation prompt in the current thread.
 
