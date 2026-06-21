@@ -32,6 +32,7 @@ The Codex hook layer is intentionally narrow. It records that automatic compacti
 | Generic agents | Manual prompt reuse | `docs/PORTABILITY.md` |
 
 See `docs/PORTABILITY.md` for the compatibility matrix and adapter boundaries.
+For upgrade and stale hook cache issues, see `docs/TROUBLESHOOTING.md`.
 
 ## Install For Codex
 
@@ -67,6 +68,14 @@ codex plugin add context-handoff@personal
 ```
 
 Start a new Codex thread after installing so Codex loads the plugin and skill.
+
+When upgrading an already-enabled plugin, reinstall and start a new thread:
+
+```bash
+codex plugin add context-handoff@personal
+```
+
+Existing threads can keep old hook file paths in memory. If an old thread reports a missing hook script from a previous version, use the stale-cache repair in `docs/TROUBLESHOOTING.md`.
 
 ## Hook Trust
 

@@ -1,6 +1,6 @@
 {
   "name": "context-handoff",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Prepare near-full agent thread handoffs and start fresh continuation sessions, with Codex automation and cross-agent adapters.",
   "author": {
     "name": "djhyes",

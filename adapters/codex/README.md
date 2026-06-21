@@ -13,3 +13,7 @@ Relevant files:
 Install through a Codex marketplace entry that points at the repository root. See the root `README.md` for the full install flow.
 
 Codex is currently the most complete adapter because it can combine the portable skill with plugin-bundled `PreCompact(auto)` and `Stop` hooks plus Codex app thread tools.
+
+## Upgrade Note
+
+Codex threads load plugin hook file paths when the thread starts. After upgrading the plugin, start a new thread so it loads the latest cached version. If an already-open thread reports a missing hook script from an older cache path, follow `docs/TROUBLESHOOTING.md`.
